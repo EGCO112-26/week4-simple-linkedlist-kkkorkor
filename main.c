@@ -4,7 +4,7 @@
 #include "std_node.h"
 int main(int argc, const char * argv[]){
     int i;
-    stdPtr temp = NULL, head = NULL;
+    stdPtr temp, head;
         head = (stdPtr)malloc(sizeof(struct std_node));
         temp = head;
 
