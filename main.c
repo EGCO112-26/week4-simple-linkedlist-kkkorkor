@@ -1,98 +1,40 @@
-//
-//  main.c
-//  simple linkedlist
-//
-//  Created by Mingmanas Sivaraksa on 4/2/2566 BE.
-//
-
 #include <stdio.h>
 #include <stdlib.h>
-#include "node.h"
+#include <string.h>
+#include "std_node.h"
+int main(int argc, const char * argv[]){
+    int i;
+    stdPtr temp, head;
+        head = (stdPtr)malloc(sizeof(struct std_node));
+        temp = head;
 
-int main(int argc, const char * argv[]) {
-    int c=5;
-    struct node a,b,*head ;
-    a.value = c ;
-    a.next=&b;
-    head=&a;
-    b.value=head->value+3;
-    
-
-    printf("%d\n", head ->value ); //what value for 5
-    printf("%d\n", head ->next->value ); //what value for 8
-/*  Exercise I
-    1. Add 1 more than at the end
-    2. Add value(11)
-    3. Make next become NULL
-*/
-    struct node d;
-    b.next=&d;
-    d.value=11;
-    //b.next->value=11;
-    //(*d).value=11;
-    //a.next->next->value=11;
-    //head->next->next->value=11;
-    d.next=NULL;
-    printf("Add value 11\n");
-    printf("%d\n", head ->value ); //what value for 5
-    printf("%d\n", head ->next->value ); //what value for 8
-    printf("%d\n", head ->next->next->value ); //value for 11
-
-/*  Exercise II
-        1. Add 1 more than at the begining!!!!
-        2. Add value (2)  
-*/
-    printf("Insert 2 in front\n");
-    struct node e;
-    e.value=2;
-    e.next=&a;
-    head=&e;
-
-    printf("%d\n", head ->value ); //what value for 2
-    printf("%d\n", head ->next->value ); //what value for 5
-    printf("%d\n", head ->next->next->value ); //value for 8
-    printf("%d\n", head ->next->next->next->value ); //value for 11
-
-    printf("Insert 7 in middle\n");
-    struct node f;
-    f.value=7;
-    f.next=&b;
-    a.next=&f;
-
-    printf("%d\n", head ->value ); //what value for 2
-    printf("%d\n", head ->next->value ); //what value for 5
-    printf("%d\n", head ->next->next->value ); //value for 7
-    printf("%d\n", head ->next->next->next->value ); //value for 8
-    printf("%d\n", head ->next->next->next->next->value ); //value for 11
-
-    typedef struct node* NodePtr;
-    NodePtr tmp=head; //add temp value to faciliate
-        
-    /*  Exercise III Use loop to print everything
-        int i,n=5;
-        for(i=0;i<n;i++){
-            printf("%3d", tmp->value);
-          // What is missing???
+        for(i=1; i<argc; i+=2){
+            
+            temp->id = atoi(argv[i]);
+            strcpy(temp->name, argv[i+1]);
+            if(i < argc-1){
+              temp->next = (stdPtr)malloc(sizeof(struct std_node)); 
+              temp = temp->next; 
+            }
+            
         }
-    */
-    
-   /*  Exercise IV change to while loop!! (you can use NULL to help)
-       
-         while(){
-            printf("%3d", tmp->value);
-           // What is missing???
-        }
-    */
-    
- /*  Exercise V Use malloc to create all nodes, instead of create a struct!!
-         //use a loop to help
-          
-     */
+        temp->next = NULL;
 
-    /*  Exercise VI Free all node !!
-         //use a loop to help
-          
-     */
-    
-    return 0;
-}
+        //print data
+        temp=head;
+        while(temp != NULL){
+            printf("%d %s\n", temp->id, temp->name);
+            temp = temp->next;
+        }
+
+
+        //delete data
+        temp=head;
+        while(temp != NULL){ 
+            stdPtr next = temp->next;
+            free(temp);
+            temp = next;
+        }
+
+        return 0;
+    }
